@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+<!-- ========================= SECTION CONTENT ========================= -->
+<section class="section-conten padding-y" style="min-height:84vh">
+{% if request.GET.command == 'varification' %}
+<div class="cantainer mx-auto alert alert-info text-center" style="max-width: 1024px; margin-top:100px;">
+  We have sent you varification email to your email addresss [{{ request.GET.email }}] 
+  <br><br>
+  Already varifield? <a href="{% url 'login' %}" >
+</div>
+{% else %}
+ 
+
+    <!-- ============================ COMPONENT LOGIN   ================================= -->
+        <div class="card mx-auto" style="max-width: 380px; margin-top:100px;">
+            
+          <div class="card-body">
+            {% include 'include/alert.html' %}
+          <h4 class="card-title mb-4">Sign in</h4>
+          <form action="{% url 'login' %}" method="POST">
+            {% csrf_token %}
+              <div class="form-group">
+                 <input name="email" type="email" class="form-control" placeholder="Email Address" >
+              </div> <!-- form-group// -->
+              <div class="form-group">
+                <input name="password" type="password" class="form-control" placeholder="Password" >
+              </div> <!-- form-group// -->
+              
+              <div class="form-group">
+                  <a href="#" class="float-right">Forgot password?</a> 
+               
+              </div> <!-- form-group form-check .// -->
+              <div class="form-group">
+                  <button type="submit" class="btn btn-primary btn-block"> Login  </button>
+              </div> <!-- form-group// -->    
+          </form>
+          </div> <!-- card-body.// -->
+        </div> <!-- card .// -->
+    
+         <p class="text-center mt-4">Don't have account? <a href="{% url 'register' %}">Sign up</a></p>
+         <br><br>
+    <!-- ============================ COMPONENT LOGIN  END.// ================================= -->
+   {% endif %} 
+    
+    </section>
+    <!-- ========================= SECTION CONTENT END// ========================= -->
+    
+
+{% endblock %}
