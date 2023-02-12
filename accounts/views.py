@@ -102,7 +102,7 @@ def login(request):
                 pass
             auth.login(request,user)
             messages.success(request,'You are now LOGGED IN')
-            url = requests.META.get('HTTP_REFERER')
+            url = request.META.get('HTTP_REFERER')
             try:
                 query = requests.utils.urlparse(url).query
                 params = dict(x.split('=') for x in query.split('&'))
