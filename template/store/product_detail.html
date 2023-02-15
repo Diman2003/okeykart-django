@@ -1,6 +1,29 @@
 {% extends 'base.html' %}
 {% load static %}
+
+
+{% block css %}
+ul.thumb{
+    margin:0 auto;
+    padding: 0;
+    float: left;
+
+}
+ul.thumb li{
+    list-style: none;
+    margin: 10px;
+}
+ul.thumb li img{
+    width: 80px;
+    height: 80px;
+    border: 1px solid grey;
+}
+
+
+{% endblock %}
 {% block content %}
+
+
 
 <section class="section-content padding-y bg">
     <div class="container">
@@ -10,11 +33,19 @@
         <div class="row no-gutters">
             <aside class="col-md-6">
     <article class="gallery-wrap"> 
-        <div class="img-big-wrap">
-           <a href="#"><img src="{{ single_product.images.url }}"></a>
+        <div class="img-big-wrap mainImage">
+       <center> <img src="{{ single_product.images.url }}"></center>
         </div> <!-- img-big-wrap.// -->
         
     </article> <!-- gallery-wrap .end// -->
+    <ul class="thumb">
+        <li>
+            <a href="{{ single_product.images.url }}" target="mainImage"> <img src="{{ single_product.images.url }}" alt="Product Image"> </a>
+            {% for i in product_gallery %}
+            <a href="{{i.image.url}}" target="mainImage"> <img src="{{i.image.url}}" alt="Product Image"> </a>
+             {% endfor %}
+        </li>
+    </ul>
             </aside>
             <main class="col-md-6 border-left">
 <form action="{% url 'add_cart' single_product.id %}" method="POST">
@@ -29,7 +60,7 @@
             <i class="fa fa-star{% if single_product.averageReview < 2.5 %}-o{% elif review.rating >= 2.5 and single_product.averageReview < 5 %}-half-o {% endif %}" aria-hidden="true"> </i>
             <i class="fa fa-star{% if single_product.averageReview < 3.5 %}-o{% elif review.rating >= 3.5 and single_product.averageReview < 4 %}-half-o {% endif %}" aria-hidden="true"> </i>
             <i class="fa fa-star{% if single_product.averageReview < 4.5 %}-o{% elif review.rating >= 4.5 and single_product.averageReview < 5 %}-half-o {% endif %}" aria-hidden="true"> </i>
-
+          <span>{{revews.countReview}} reviews</span>
             </span>
         </div>
     {% comment %} {{single_product.countReview}} reviews {% endcomment %}
@@ -172,5 +203,8 @@
     </section>
     <!-- ========================= SECTION CONTENT END// ========================= -->
     
+
+
+
 
 {% endblock %}
